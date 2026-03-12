@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Campus Lost & Found</title>
+    <base href="./">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="brand">School Lost & Found</div>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="lost.html">Report Lost</a>
+        <a href="found.html">Report Found</a>
+        <a href="claim.html">Claim Item</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+</header>
+
+<section id="parallax" class="parallax full-page">
+    <div class="parallax-content">
+        <img src="images/alliance-academy-logo.png" alt="Alliance Academy Logo" class="parallax-logo">
+        <h1>Alliance Academy Lost and Found</h1>
+    </div>
+</section>
+
+<style>
+.parallax {
+    background-image: url('images/bg-land.jpg'); /* Background image from the images folder */
+    height: 100vh; /* Full viewport height */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.parallax-content {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.parallax-logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+}
+</style>
+
+<main class="container">
+
+    <!-- HOME -->
+    <section id="home" class="grid">
+        <div class="card">
+            <h2>Found Items</h2>
+            <p class="muted">Browse items currently in the lost & found.</p>
+            <div id="itemsList" class="items-grid">
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/black-backpack.jpg" alt="Black Backpack">
+                    </div>
+                    <div class="meta">
+                        <h4>Black Backpack</h4>
+                        <p class="muted">Found near the library</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/airpods-case.jpg" alt="AirPods Case">
+                    </div>
+                    <div class="meta">
+                        <h4>AirPods Case</h4>
+                        <p class="muted">Found in the cafeteria</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/calculator.jpg" alt="Calculator">
+                    </div>
+                    <div class="meta">
+                        <h4>Calculator</h4>
+                        <p class="muted">Found in the math classroom</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/water-bottle.jpg" alt="Water Bottle">
+                    </div>
+                    <div class="meta">
+                        <h4>Water Bottle</h4>
+                        <p class="muted">Found in the gym</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/notebook.jpg" alt="Notebook">
+                    </div>
+                    <div class="meta">
+                        <h4>Notebook</h4>
+                        <p class="muted">Found in the library</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/phone-charger.jpg" alt="Phone Charger">
+                    </div>
+                    <div class="meta">
+                        <h4>Phone Charger</h4>
+                        <p class="muted">Found in the computer lab</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/sunglasses.jpg" alt="Sunglasses">
+                    </div>
+                    <div class="meta">
+                        <h4>Sunglasses</h4>
+                        <p class="muted">Found near the entrance</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/keychain.jpg" alt="Keychain">
+                    </div>
+                    <div class="meta">
+                        <h4>Keychain</h4>
+                        <p class="muted">Found in the parking lot</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/umbrella.jpg" alt="Umbrella">
+                    </div>
+                    <div class="meta">
+                        <h4>Umbrella</h4>
+                        <p class="muted">Found in the hallway</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+                <div class="item">
+                    <div class="thumb">
+                        <img src="images/lunchbox.jpg" alt="Lunchbox">
+                    </div>
+                    <div class="meta">
+                        <h4>Lunchbox</h4>
+                        <p class="muted">Found in the cafeteria</p>
+                    </div>
+                    <button class="btn">Claim</button>
+                </div>
+            </div>
+        </div>
+
+        <aside class="card">
+            <h3>Quick Actions</h3>
+            <a href="lost.html" class="btn">Report Lost Item</a>
+            <a href="found.html" class="btn">Report Found Item</a>
+            <a href="claim.html" class="btn">Claim Item</a>
+            <a href="faqs.html" class="btn">FAQs</a>
+            <button class="btn" id="refreshBtn" style="margin:16px;">Refresh</button>
+
+            <div style="margin-top:14px">
+                <h4>Status</h4>
+                <div id="claimStatus" class="muted small">No recent claims.</div>
+            </div>
+        </aside>
+    </section>
+
+</main>
+
+<footer>
+    FBLA Website Design Demo
+</footer>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>

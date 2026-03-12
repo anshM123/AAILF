@@ -1,0 +1,12 @@
+# Suggested Online Images for Dashboard Items
+
+1. **Black Backpack**: https://example.com/black-backpack.png
+2. **AirPods Case**: https://example.com/airpods-case.png
+3. **Calculator**: https://example.com/calculator.png
+4. **Water Bottle**: https://example.com/water-bottle.png
+5. **Notebook**: https://example.com/notebook.png
+6. **Phone Charger**: https://example.com/phone-charger.png
+7. **Sunglasses**: https://example.com/sunglasses.png
+8. **Keychain**: https://example.com/keychain.png
+9. **Umbrella**: https://example.com/umbrella.png
+10. **Lunchbox**: https://example.com/lunchbox.png

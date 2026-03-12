@@ -1,16 +1,15 @@
-
-// Initial sample items if none in storage
+// Initial sample items with image placeholders
 let items = JSON.parse(localStorage.getItem("items")) || [
-    { id: 1, title: "Black Backpack", claimed: false },
-    { id: 2, title: "AirPods Case", claimed: false },
-    { id: 3, title: "Calculator", claimed: false },
-    { id: 4, title: "Water Bottle", claimed: false },
-    { id: 5, title: "Notebook", claimed: false },
-    { id: 6, title: "Phone Charger", claimed: false },
-    { id: 7, title: "Sunglasses", claimed: false },
-    { id: 8, title: "Keychain", claimed: false },
-    { id: 9, title: "Umbrella", claimed: false },
-    { id: 10, title: "Lunchbox", claimed: false }
+    { id: 1, title: "Black Backpack", claimed: false, image: "images/black-backpack.jpg" },
+    { id: 2, title: "AirPods Case", claimed: false, image: "images/airpods-case.jpg" },
+    { id: 3, title: "Calculator", claimed: false, image: "images/calculator.jpg" },
+    { id: 4, title: "Water Bottle", claimed: false, image: "images/water-bottle.jpg" },
+    { id: 5, title: "Notebook", claimed: false, image: "images/notebook.jpg" },
+    { id: 6, title: "Phone Charger", claimed: false, image: "images/phone-charger.jpg" },
+    { id: 7, title: "Sunglasses", claimed: false, image: "images/sunglasses.jpg" },
+    { id: 8, title: "Keychain", claimed: false, image: "images/keychain.jpg" },
+    { id: 9, title: "Umbrella", claimed: false, image: "images/umbrella.jpg" },
+    { id: 10, title: "Lunchbox", claimed: false, image: "images/lunchbox.jpg" }
 ];
 
 let claims = JSON.parse(localStorage.getItem("claims")) || [];
@@ -77,20 +76,37 @@ function renderItems() {
         const wrapper = document.createElement("div");
         wrapper.className = "item";
 
-        const label = document.createElement("div");
-        label.textContent = item.title;
+        const thumb = document.createElement("div");
+        thumb.className = "thumb";
+        const img = document.createElement("img");
+        img.src = item.image || "images/lost-items-bg.jpg"; // Use fallback if image is undefined
+        img.alt = item.title;
+        img.onerror = () => {
+            img.src = "images/lost-items-bg.jpg"; // Fallback image if the source fails to load
+        };
+        thumb.appendChild(img);
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        const title = document.createElement("h4");
+        title.textContent = item.title;
+        const location = document.createElement("p");
+        location.className = "muted";
+        location.textContent = item.location || "Location not specified"; // Display location if available
+        meta.appendChild(title);
+        meta.appendChild(location);
 
         const btn = document.createElement("button");
         btn.className = "btn";
         btn.textContent = "Claim";
-        btn.addEventListener("click", () => startClaimForItem(item.id));
+        btn.onclick = () => claimItem(item.id);
 
-        wrapper.appendChild(label);
+        wrapper.appendChild(thumb);
+        wrapper.appendChild(meta);
         wrapper.appendChild(btn);
+
         itemsListEl.appendChild(wrapper);
     });
-
-    populateItemSelect();
 }
 
 function populateItemSelect() {
@@ -241,20 +257,23 @@ function handleClaimSubmit(event) {
 
     const name = studentNameEl.value.trim();
     const contact = contactEl.value.trim();
+    const selectedItem = itemSelectEl.value;
+
+    clearForm();
 
     if (!name || !contact) {
         alert("Please enter your name and contact information.");
         return;
     }
 
-    if (!itemSelectEl.value) {
+    if (!selectedItem) {
         alert("Please select an item to claim.");
         return;
     }
 
     claims.push({
         type: "found",
-        itemId: itemSelectEl.value,
+        itemId: selectedItem,
         name,
         contact,
         message: messageEl.value.trim(),
@@ -264,7 +283,6 @@ function handleClaimSubmit(event) {
 
     saveState();
     renderClaimStatus();
-    clearForm();
     const successEl = document.getElementById("successMessage");
     if (successEl) {
         successEl.style.display = "block";
@@ -300,6 +318,8 @@ function handleLostSubmit(event) {
     const name = lostNameEl.value.trim();
     const contact = lostContactEl.value.trim();
 
+    clearForm();
+
     if (!title || !name || !contact) {
         alert("Please fill in all required fields.");
         return;
@@ -319,7 +339,6 @@ function handleLostSubmit(event) {
 
     saveState();
     renderClaimStatus();
-    clearForm();
     const successEl = document.getElementById("successMessage");
     if (successEl) {
         successEl.style.display = "block";
@@ -339,6 +358,8 @@ function handleFoundSubmit(event) {
     const name = foundNameEl.value.trim();
     const contact = foundContactEl.value.trim();
 
+    clearForm();
+
     if (!title || !name || !contact) {
         alert("Please fill in all required fields.");
         return;
@@ -353,7 +374,6 @@ function handleFoundSubmit(event) {
     });
 
     saveState();
-    clearForm();
     const successEl = document.getElementById("successMessage");
     if (successEl) {
         successEl.style.display = "block";
@@ -460,6 +480,11 @@ function init() {
     renderAll();
     populateItemSelect();
 }
+
+// Ensure renderItems is called on page load to render items
+window.addEventListener("DOMContentLoaded", () => {
+    renderItems();
+});
 
 document.addEventListener("DOMContentLoaded", init);
 

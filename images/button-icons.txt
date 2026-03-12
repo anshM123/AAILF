@@ -1,0 +1,10 @@
+# Suggested Online Images for Buttons
+
+1. **Claim Button**: https://example.com/claim-icon.png
+2. **Report Lost Item**: https://example.com/report-lost-icon.png
+3. **Report Found Item**: https://example.com/report-found-icon.png
+4. **FAQs**: https://example.com/faqs-icon.png
+5. **Refresh**: https://example.com/refresh-icon.png
+6. **Approve**: https://example.com/approve-icon.png
+7. **Reject**: https://example.com/reject-icon.png
+8. **Delete**: https://example.com/delete-icon.png

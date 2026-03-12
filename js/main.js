@@ -304,8 +304,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load Admin Dashboard
     function loadAdminDashboard() {
         console.log('Loading admin dashboard');
+        loadDashboardItems();
         loadPendingRequests();
         loadApprovedItems();
+    }
+
+    // Load Dashboard Items with Images
+    function loadDashboardItems() {
+        const container = document.getElementById('dashboard-items');
+        const itemImages = {
+            'Black Backpack': 'https://revo.com/products/forge?srsltid=AfmBOopqNLztJnSNx8phLKPWvRMwU7ib4Swat_X6PVQI2qoxjGbrkXmI',
+            'AirPods Case': 'https://swankybadger.com/products/walnut-airpods-case-classic?srsltid=AfmBOoqnNTlG9OM05NkRubq5UwjEMDbXXitKKfOlkFWX_Zt5zl1CJuCx',
+            'Calculator': 'https://pixabay.com/vectors/calculator-numbers-0-1-2-3-4-5-2374442/',
+            'Water Bottle': 'https://www.gettyimages.com/photos/water-bottle',
+            'Notebook': 'https://unsplash.com/s/photos/notebooks',
+            'Phone Charger': 'https://unsplash.com/s/photos/phone-charger',
+            'Sunglasses': 'https://revo.com/products/forge?srsltid=AfmBOopqNLztJnSNx8phLKPWvRMwU7ib4Swat_X6PVQI2qoxjGbrkXmI',
+            'Keychain': 'https://modpodgerocksblog.com/diy-keychains/',
+            'Umbrella': 'https://www.britannica.com/technology/umbrella',
+            'Lunchbox': 'https://www.gettyimages.com/photos/lunch-box'
+        };
+
+        container.innerHTML = state.items.found.map(item => `
+            <div class="item-card">
+                <img src="${itemImages[item.name] || 'https://example.com/default-icon.png'}" alt="${item.name}" class="item-image" />
+                <h4>${item.name}</h4>
+                <button class="btn" onclick="claimItem('${item.id}')">Claim</button>
+            </div>
+        `).join('');
     }
 
     // Load Pending Requests

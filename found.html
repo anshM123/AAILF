@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Campus Lost & Found - Report Found Item</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="brand">School Lost & Found</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="lost.html">Report Lost</a>
+        <a href="found.html" class="active">Report Found</a>
+        <a href="claim.html">Claim Item</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <!-- REPORT FOUND -->
+    <section id="found">
+        <div class="centered">
+            <div class="card">
+                <h2>Report a Found Item</h2>
+
+                <form id="foundForm">
+                    <label>Item name</label>
+                    <input id="foundTitle" required placeholder="e.g. Black Backpack">
+
+                    <label>Where found</label>
+                    <input id="foundLocation" required placeholder="e.g. Cafeteria">
+
+                    <label>Date found</label>
+                    <input id="foundDate" type="date" required>
+
+                    <label>Your name</label>
+                    <input id="foundName" required>
+
+                    <label>Contact</label>
+                    <input id="foundContact" required>
+
+                    <label>Details</label>
+                    <textarea id="foundMessage" rows="4"></textarea>
+
+                    <label>Optional Picture</label>
+                    <input id="foundImage" type="file" accept="image/*">
+
+                    <div style="margin-top:12px">
+                        <button class="btn" type="submit">Submit Report</button>
+                        <button type="button" id="cancelFound" class="btn gray">Cancel</button>
+                    </div>
+                </form>
+                <div id="successMessage" style="display:none; color:green; text-align:center; margin-top:20px; font-size:18px;">
+                    <span style="font-size:24px;">✓</span> Report submitted successfully!
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    FBLA Website Design Demo
+</footer>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
