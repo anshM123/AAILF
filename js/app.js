@@ -96,10 +96,10 @@ function renderItems() {
         meta.appendChild(title);
         meta.appendChild(location);
 
-        const btn = document.createElement("button");
+        const btn = document.createElement("a");
         btn.className = "btn";
         btn.textContent = "Claim";
-        btn.onclick = () => claimItem(item.id);
+        btn.href = "claim.html"; // Redirect to the claim page
 
         wrapper.appendChild(thumb);
         wrapper.appendChild(meta);
