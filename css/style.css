@@ -218,15 +218,31 @@ footer{text-align:center; padding:18px; color:var(--muted); font-size:13px}
     text-align: center;
 }
 
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.quick-actions .btn {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 44px;
+    padding: 10px 12px;
+    margin: 0;
+}
+
 .item-card .btn {
     margin-top: 10px;
 }
 
 .quick-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Arrange buttons in a vertical list */
     gap: 10px; /* Add spacing between buttons */
-    align-items: center; /* Center align buttons */
+    align-items: flex-start; /* Align buttons to the left */
 }
 
 .quick-actions .btn {
