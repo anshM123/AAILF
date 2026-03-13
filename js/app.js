@@ -1,16 +1,27 @@
 // Initial sample items with image placeholders
+function randomDaysLeft() {
+    return Math.floor(Math.random() * 30) + 1;
+}
+
 let items = JSON.parse(localStorage.getItem("items")) || [
-    { id: 1, title: "Black Backpack", claimed: false, image: "images/black-backpack.jpg" },
-    { id: 2, title: "AirPods Case", claimed: false, image: "images/airpods-case.jpg" },
-    { id: 3, title: "Calculator", claimed: false, image: "images/calculator.jpg" },
-    { id: 4, title: "Water Bottle", claimed: false, image: "images/water-bottle.jpg" },
-    { id: 5, title: "Notebook", claimed: false, image: "images/notebook.jpg" },
-    { id: 6, title: "Phone Charger", claimed: false, image: "images/phone-charger.jpg" },
-    { id: 7, title: "Sunglasses", claimed: false, image: "images/sunglasses.jpg" },
-    { id: 8, title: "Keychain", claimed: false, image: "images/keychain.jpg" },
-    { id: 9, title: "Umbrella", claimed: false, image: "images/umbrella.jpg" },
-    { id: 10, title: "Lunchbox", claimed: false, image: "images/lunchbox.jpg" }
+    { id: 1, title: "Black Backpack", claimed: false, image: "images/black-backpack.jpg", daysLeft: randomDaysLeft() },
+    { id: 2, title: "AirPods Case", claimed: false, image: "images/airpods-case.jpg", daysLeft: randomDaysLeft() },
+    { id: 3, title: "Calculator", claimed: false, image: "images/calculator.jpg", daysLeft: randomDaysLeft() },
+    { id: 4, title: "Water Bottle", claimed: false, image: "images/water-bottle.jpg", daysLeft: randomDaysLeft() },
+    { id: 5, title: "Notebook", claimed: false, image: "images/notebook.jpg", daysLeft: randomDaysLeft() },
+    { id: 6, title: "Phone Charger", claimed: false, image: "images/phone-charger.jpg", daysLeft: randomDaysLeft() },
+    { id: 7, title: "Sunglasses", claimed: false, image: "images/sunglasses.jpg", daysLeft: randomDaysLeft() },
+    { id: 8, title: "Keychain", claimed: false, image: "images/keychain.jpg", daysLeft: randomDaysLeft() },
+    { id: 9, title: "Umbrella", claimed: false, image: "images/umbrella.jpg", daysLeft: randomDaysLeft() },
+    { id: 10, title: "Lunchbox", claimed: false, image: "images/lunchbox.jpg", daysLeft: randomDaysLeft() }
 ];
+
+// Ensure all items have daysLeft (for items loaded from localStorage)
+items.forEach(item => {
+    if (item.daysLeft === undefined) {
+        item.daysLeft = randomDaysLeft();
+    }
+});
 
 let claims = JSON.parse(localStorage.getItem("claims")) || [];
 
@@ -140,6 +151,17 @@ function renderItems() {
         location.textContent = item.location || "Location not specified";
         meta.appendChild(title);
         meta.appendChild(location);
+
+        // Days left until donation
+        const daysLeft = item.daysLeft !== undefined ? item.daysLeft : 30;
+        const countdown = document.createElement("div");
+        countdown.className = "days-left" + (daysLeft < 10 ? " going-soon" : "");
+        if (daysLeft < 10) {
+            countdown.innerHTML = `<span class="days-number">${daysLeft}</span> days left — <strong>Going Soon!</strong>`;
+        } else {
+            countdown.innerHTML = `<span class="days-number">${daysLeft}</span> days left to claim`;
+        }
+        meta.appendChild(countdown);
 
         const btn = document.createElement("a");
         btn.className = "btn";
@@ -422,7 +444,8 @@ function handleFoundSubmit(event) {
     items.push({
         id: newId,
         title,
-        claimed: false
+        claimed: false,
+        daysLeft: 30
     });
 
     saveState();

@@ -86,6 +86,29 @@ nav a.active, nav a:hover { background: var(--accent-yellow); color: #111 }
 .muted { color:var(--muted) }
 .small { font-size:13px }
 
+/* Days-left countdown */
+.days-left {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+.days-left .days-number {
+    font-weight: 700;
+}
+
+.days-left.going-soon {
+    color: #d32f2f;
+    font-weight: 700;
+    animation: pulse-red 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-red {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
 /* Homepage claim buttons should be gold */
 #home .item .btn { background: var(--accent-yellow); color: #111 }
 #home .item .btn:hover { background: #f3c94a }
