@@ -62,44 +62,89 @@ const messageEl = document.getElementById("message");
 // Rendering functions
 // ---------------------------
 
+let currentSearchQuery = "";
+
 function renderItems() {
+    if (!itemsListEl) return;
     itemsListEl.innerHTML = "";
 
-    if (items.length === 0) {
+    const query = currentSearchQuery.toLowerCase();
+
+    // Filter unclaimed items, then apply search query
+    let visibleItems = items.filter(item => !item.claimed);
+
+    if (query) {
+        // Separate matches from non-matches
+        const matches = visibleItems.filter(item =>
+            item.title.toLowerCase().includes(query) ||
+            (item.location && item.location.toLowerCase().includes(query))
+        );
+        const nonMatches = visibleItems.filter(item =>
+            !item.title.toLowerCase().includes(query) &&
+            !(item.location && item.location.toLowerCase().includes(query))
+        );
+
+        // Sort matches: items starting with the query first, then by indexOf
+        matches.sort((a, b) => {
+            const aTitle = a.title.toLowerCase();
+            const bTitle = b.title.toLowerCase();
+            const aStarts = aTitle.startsWith(query) ? 0 : 1;
+            const bStarts = bTitle.startsWith(query) ? 0 : 1;
+            if (aStarts !== bStarts) return aStarts - bStarts;
+            return aTitle.indexOf(query) - bTitle.indexOf(query);
+        });
+
+        visibleItems = [...matches, ...nonMatches];
+    }
+
+    if (visibleItems.length === 0) {
         itemsListEl.innerHTML = `<p class="muted small">No items currently in the lost & found.</p>`;
         return;
     }
 
-    items.forEach(item => {
-        if (item.claimed) return;
+    visibleItems.forEach(item => {
+        const isMatch = !query || item.title.toLowerCase().includes(query) ||
+            (item.location && item.location.toLowerCase().includes(query));
 
         const wrapper = document.createElement("div");
         wrapper.className = "item";
+        if (query) {
+            wrapper.classList.add(isMatch ? "search-match" : "search-dimmed");
+        }
 
         const thumb = document.createElement("div");
         thumb.className = "thumb";
         const img = document.createElement("img");
-        img.src = item.image || "images/lost-items-bg.jpg"; // Use fallback if image is undefined
+        img.src = item.image || "images/lost-items-bg.jpg";
         img.alt = item.title;
-        img.onerror = () => {
-            img.src = "images/lost-items-bg.jpg"; // Fallback image if the source fails to load
-        };
+        img.onerror = () => { img.src = "images/lost-items-bg.jpg"; };
         thumb.appendChild(img);
 
         const meta = document.createElement("div");
         meta.className = "meta";
         const title = document.createElement("h4");
-        title.textContent = item.title;
+
+        // Highlight matching text in the title
+        if (query && item.title.toLowerCase().includes(query)) {
+            const idx = item.title.toLowerCase().indexOf(query);
+            const before = item.title.slice(0, idx);
+            const match = item.title.slice(idx, idx + query.length);
+            const after = item.title.slice(idx + query.length);
+            title.innerHTML = `${before}<mark>${match}</mark>${after}`;
+        } else {
+            title.textContent = item.title;
+        }
+
         const location = document.createElement("p");
         location.className = "muted";
-        location.textContent = item.location || "Location not specified"; // Display location if available
+        location.textContent = item.location || "Location not specified";
         meta.appendChild(title);
         meta.appendChild(location);
 
         const btn = document.createElement("a");
         btn.className = "btn";
         btn.textContent = "Claim";
-        btn.href = "claim.html"; // Redirect to the claim page
+        btn.href = "claim.html";
 
         wrapper.appendChild(thumb);
         wrapper.appendChild(meta);
@@ -107,6 +152,13 @@ function renderItems() {
 
         itemsListEl.appendChild(wrapper);
     });
+
+    if (query && !visibleItems.some(item =>
+        item.title.toLowerCase().includes(query) ||
+        (item.location && item.location.toLowerCase().includes(query))
+    )) {
+        itemsListEl.innerHTML = `<p class="muted small">No items match your search.</p>`;
+    }
 }
 
 function populateItemSelect() {
@@ -477,14 +529,18 @@ function init() {
         document.getElementById("loginForm").addEventListener("submit", handleLogin);
     }
 
+    // Search bar setup
+    const searchBarEl = document.getElementById("searchBar");
+    if (searchBarEl) {
+        searchBarEl.addEventListener("input", () => {
+            currentSearchQuery = searchBarEl.value.trim();
+            renderItems();
+        });
+    }
+
     renderAll();
     populateItemSelect();
 }
-
-// Ensure renderItems is called on page load to render items
-window.addEventListener("DOMContentLoaded", () => {
-    renderItems();
-});
 
 document.addEventListener("DOMContentLoaded", init);
 
